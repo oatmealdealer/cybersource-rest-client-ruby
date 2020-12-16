@@ -91,12 +91,7 @@ module CyberSource
         end
       end
 
-      if opts[:return_type]
-        data = deserialize(response, opts[:return_type])
-      else
-        data = nil
-      end
-      return response.body, response.code, response.headers
+      return deserialize(response, opts[:return_type] || 'String'), response.code, response.headers
     end
 
     # Builds the HTTP request
