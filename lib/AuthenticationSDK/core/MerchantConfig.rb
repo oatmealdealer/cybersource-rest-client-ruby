@@ -44,12 +44,14 @@ public
       elsif !@logSize.instance_of? Fixnum
         @logSize=@logSize.to_i
       end
-      if @logDirectory.to_s.empty? || !Dir.exist?(@logDirectory)
-        @logDirectory = Constants::DEFAULT_LOG_DIRECTORY
-        unless Dir.exist?(@logDirectory)
-          Dir.mkdir(Constants::DEFAULT_LOG_DIRECTORY)
+      if @enableLog
+        if @logDirectory.to_s.empty? || !Dir.exist?(@logDirectory)
+          @logDirectory = Constants::DEFAULT_LOG_DIRECTORY
+          unless Dir.exist?(@logDirectory)
+            Dir.mkdir(Constants::DEFAULT_LOG_DIRECTORY)
+          end
+          logmessage = Constants::WARNING_PREFIX + Constants::INVALID_LOG_DIRECTORY + File.expand_path(@logDirectory)
         end
-        logmessage = Constants::WARNING_PREFIX + Constants::INVALID_LOG_DIRECTORY + File.expand_path(@logDirectory)
       end
       if @logFilename.to_s.empty?
         @logFilename = Constants::DEFAULT_LOGFILE_NAME
